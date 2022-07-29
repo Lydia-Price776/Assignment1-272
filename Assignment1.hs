@@ -1,8 +1,36 @@
 --Lydia Price ID: 20004521 Assignment One
 
---adjust_date :: (Int,Int,Int) -> Int -> (Int, Int, Int)
+adjust_date :: (Int,Int,Int) -> Int -> (Int, Int, Int)
+adjust_date date offset
+          | check_valid date offset =  shift_date date offset
 
 
+-- Shifts the date across months 
+-- Not happy with this function due to the length of the resulting tuple
+-- Look at changing the month_length function to not use the get functions 
+-- Could use a “where x = get_day date, y = get_month date, z = get_year date”
+
+-- This function shifts the date based on its month 
+shift_date :: (Int,Int,Int) -> Int -> (Int,Int,Int)
+shift_date date offset 
+          | get_month date == 12 && new_date > 31          = (new_date - new_month_length 1 (get_year date + 1), 1, get_year date +1) -- Works
+          | get_month date == 1 && new_date <= 0           = (31 + new_date, 12, get_year date - 1) -- Works
+          | new_date <= 0                                  = (new_month_length (get_month date - 1) (get_year date) + new_date, get_month date - 1, get_year date) 
+          | new_date > month_length date                   = (new_date - new_month_length (get_month date)(get_year date), get_month date + 1, get_year date)
+          | otherwise                                      = (new_date, get_month date, get_year date)
+          where new_date = get_day date + (offset) 
+                
+-- new_date <= month_length date && new_date > 0 In plave of otherwise 
+
+-- For the month_length date part in the tuples, we need the lenght of the new month not the current month 
+new_month_length :: Int -> Int -> Int
+new_month_length month year
+                | member_of_list month [1,3,5,7,8,10,12]  = 31
+                | member_of_list month [1,3,5,7,8,10,12]  = 31
+                | member_of_list month [4,6,9,11]         = 30
+                | month == 2 && is_leapyear year          = 29
+                | otherwise                               = 28
+        
 
 -- Checks the input is valid 
 -- Could possibly combine this with the adjust date and where it is true have a shift_date function?

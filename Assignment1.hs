@@ -8,6 +8,7 @@ adjust_date date offset
            | check_day date == False       = error "Date is not within the given month"
            | otherwise                     = shift_date date offset
 
+
 --Determines how to shift the date and returns the new date 
 shift_date :: (Int,Int,Int) -> Int -> (Int,Int,Int)
 shift_date date offset 
@@ -33,9 +34,6 @@ month_forward :: Int -> Int-> Int -> (Int, Int, Int)
 month_forward new_day month year = (day, month + 1, year) 
             where day = new_day - month_length month year 
 
-
--- (month_length (month - 1)(year) + new_day,month - 1, year) 
--- (new_day - month_length month year, month + 1, get_year date)
 
 -- Checks the day is within the given month 
 check_day ::(Int, Int, Int) -> Bool
@@ -99,17 +97,14 @@ is_leapyear year
           | otherwise          = False 
 
 
-
 -- Returns the Day component of a tuple
 get_day :: (Int,Int, Int) -> Int
 get_day (x, _, _) = x
 
 
-
 -- Returns the Month component of a tuple
 get_month :: (Int,Int, Int) -> Int
 get_month (_, x, _) = x
-
 
 
 -- Returns the Year component of a tuple

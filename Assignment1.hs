@@ -1,5 +1,6 @@
 --Lydia Price ID: 20004521 Assignment One
 
+--Top Level Function
 adjust_date :: (Int,Int,Int) -> Int -> (Int, Int, Int)
 adjust_date date offset
            | check_year date == False      = error "Year is out of the range 1600 to 3000"
@@ -9,7 +10,7 @@ adjust_date date offset
            | otherwise                     = shift_date date offset
 
 
---Determines how to shift the date and returns the new date 
+-- Determines how to shift the date and returns the new date 
 shift_date :: (Int,Int,Int) -> Int -> (Int,Int,Int)
 shift_date date offset 
           | month == 12 && new_day > 31        = (new_day - 31, 1, year + 1) 
@@ -23,19 +24,19 @@ shift_date date offset
                 new_day = current_day + offset
 
 
--- Returns the new date in the previous month                       
+-- Returns the new date in the previous Month                       
 month_backward :: Int-> Int -> Int -> (Int, Int, Int) 
 month_backward new_day month year = (day, month - 1, year) 
              where day = month_length (month - 1) year + new_day
 
 
---Returns the new date in the following month
+--Returns the new date in the following Month
 month_forward :: Int -> Int-> Int -> (Int, Int, Int) 
 month_forward new_day month year = (day, month + 1, year) 
             where day = new_day - month_length month year 
 
 
--- Checks the day is within the given month 
+-- Checks the Day is within the given Month 
 check_day ::(Int, Int, Int) -> Bool
 check_day date
         | day < 1                        = False
@@ -54,7 +55,7 @@ check_year x
           | otherwise          = True 
 
 
---Checks if the month is valid 
+--Checks if the Month is valid 
 check_month :: (Int, Int, Int) -> Bool
 check_month x   
           | get_month x < 1   = False
